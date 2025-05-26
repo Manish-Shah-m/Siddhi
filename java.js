@@ -714,6 +714,63 @@ But to her.
 To her scent.
 To her presence.
 To the ruin in her eyes.`
+        },
+         {
+            id: 9,
+            title: "Not the Love I Hoped For",
+            description: "I might say that this isn't the love that I dreamed of but still you are the one I love Siddhi.",
+            text: `This isn’t the love I wished to find,
+not the kind that frees the heart and mind.
+I dreamed of love that feels like flight,
+not one that hides from morning light.
+
+You care too much what people say,
+while I just want to feel okay.
+I crave a love that’s bold and true,
+not one that fears each point of view.
+
+You once changed for someone before,
+gave effort, time, and so much more.
+But now with me, you hold it back—
+and I’m the one picking up the slack.
+
+How long will it take for you to see,
+this love I give is pure and free?
+It’s meant to last, not fade away—
+but I can’t keep giving every day.
+
+I stayed when you pushed me aside,
+held on through every tear I cried.
+I tried to be the best I can,
+stood by you like no other man.
+
+When you showed red flags, I stayed,
+through all the storms your silence made.
+From poems written to art I gave,
+I loved you loud, I loved you brave.
+
+But you won’t try to meet me there,
+won’t show me that you really care.
+And now I’m tired, worn, and low—
+of proving love you should already know.
+
+I don’t want to mirror your cold retreat,
+don’t want to match your incomplete.
+But love should feel like flight, not fall,
+and I am fading, through it all.
+
+And I fear—yes, I fear most of all,
+that one day, I’ll stop answering love’s call.
+That my heart will sleep, and my mind will say,
+"Let go. It’s time. Walk away."
+
+Still, deep inside, I leave a place,
+for all your love I hope to face.
+And though I bend, I won’t break fast—
+my love was built to truly last.
+
+"I will love you till you, or the things you do,
+finally make me give up on you."`
         }
     ];
 
