@@ -771,7 +771,62 @@ my love was built to truly last.
 
 "I will love you till you, or the things you do,
 finally make me give up on you."`
+        },
+         {
+            id: 10,
+            title: "In the Forest of Farewell",
+            description: "My bruised soul clings to love that both binds and heals, as fleeting hope blooms in the ruins of sorrow.",
+            text: `**“In the Forest of Farewell”**
+
+My life, a map of bruises blue,
+Where silence sings, and sorrow grew.
+Each bone remembers ache and fall,
+Yet something stirs beneath it all—
+Where grief once bloomed in marrow’s dome,
+Now love begins to build a home.
+
+I walk through forests dim and bare,
+Where farewells float in cold, stale air.
+But there—brief moments, bright and wild,
+Like flowers giggling, soft and mild.
+They grow in cracks, in loss, in pain,
+In sunlight spilled from sorrow’s rain.
+
+I'm tired—tired of love’s old tune,
+Of nights that pass without a moon.
+Of wounds that whisper, “Here again,”
+Of freedom caged in gold and chain.
+I’m tired of dreams that turn to rust,
+Of hearts that break, because they must.
+
+Yet still—your name, my tender balm,
+My reckless storm, my aching calm.
+Siddhi—my soul still bends for you,
+Through thin and thick, through gray and blue.
+Through highways wide and byways small,
+I’ve loved you through the rise, the fall.
+
+You are my ache, my breath, my plea,
+The home I hold but cannot see.
+In dreams, I build a world so wide,
+With you asleep there by my side.
+A home with warmth, with walls that speak,
+Of quiet laughs, and kisses cheek.
+
+I know this love may never be
+The love I dreamed that set me free.
+But even caged, my heart still sings,
+Still clings to you with breaking wings.
+You are the pain I’d choose again,
+My constant sun, my sweetest rain.
+
+So let them call this love unwise,
+I’ll hold your name till my demise.
+In broken bones, in bruised refrain,
+You bloom like spring inside my pain.
+`
         }
+        
     ];
 
     // Calculate word counts for each poem
