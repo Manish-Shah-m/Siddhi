@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriTech - Modern Agriculture Solutions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-green: #4CAF50;
+            --secondary-green: #388E3C;
+            --text-color: #333;
+            --background-color: #f8f9fa;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+        .navbar {
+            background-color: var(--background-color);
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .cta-button {
+            padding: 10px 30px;
+            background-color: var(--secondary-green);
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container">
+          <span>
+              <a class="navbar-brand" style="color: #388E3C;" href="#" >
+                <i class="fas fa-seedling" style="color: #388E3C;"></i>
+               <p id="nav-font">CROPNEST</p> 
+            </a>
+          </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer.html">Consumer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="farmer.html">Farmer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#businessman">Businessman</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#disease">Disease Identifier</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login/login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1>Cultivating Tomorrow's Agriculture</h1>
+            <p>Empowering farmers with cutting-edge technology and sustainable solutions for a greener future</p>
+            
+            
+             <a href="#second-section"><button class="button">  Explore Solutions</button></a>
+           
+           
+        </div>
+    </section>
+
+    <!-- Second Section -->
+    <section class="second-section" id="second-section">
+        <div class="container">
+            <div class="row text-center mb-5" style="width: 100%;">
+                <div class="col-lg-12 mx-auto fade-in-up">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: var(--primary-green);">
+                        Revolutionizing Agriculture
+                    </h2>
+                    <p style="font-size: 1.4rem; color: #666; width: 100%;; margin: 0 auto;">
+                        We bridge the gap between traditional farming practices and cutting-edge modern technology to empower farmers with innovative tools and insights.
+                         By combining time-tested agricultural knowledge with advanced solutions like AI,
+                         and data <span>
+                          we create sustainable and efficient approaches that address today’s complex farming challenges.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="container">
+            <h2 class="section-title">Latest Agriculture Insights</h2>
+            
+            <div class="row g-4">
+                <!-- Main Featured Article -->
+                <div class="col-lg-6">
+                    <div class="card blog-card featured-card">
+                        <div class="featured-badge">Featured</div>
+                        <img src="images/ahmet-ruzgar-lm6kLTgYokk-unsplash.jpg" 
+                             class="card-img-top" alt="Drone mapping farmland">
+                        <div class="card-body">
+                            <div class="card-date">Grow wiser, harvest stronger!</div>
+                            <h5 class="card-title">Millennial Farmers Utilize CROPNEST for Crop Disease Identification </h5>
+                            <p class="card-text">Millennial farmers trust CROPNEST to spot crop diseases fast.This helps protect crops and boost yields.
+CROPNEST makes farming smarter and more sustainable.</p>
+                            <a href="#" class="read-more-btn">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Side Articles -->
+                <div class="col-lg-6">
+                    <div class="row g-4">
+                        <!-- Article 1 -->
+                        <div class="col-12">
+                            <div class="card blog-card">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="images/nasa-i9w4Uy1pU-s-unsplash (1).jpg" 
+                                             class="img-fluid h-100" alt="Seedlings in greenhouse">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="card-date">Predict today, prosper tomorrow!</div>
+                                            <h5 class="card-title">Accurate Weather Forecasts to Help You Plan Your Farming</h5>
+                                            <a href="weather.html" class="read-more-btn">
+                                                Read More <i class="fas fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Article 2 -->
+                        <div class="col-12">
+                            <div class="card blog-card">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="images/tim-mossholder-xDwEa2kaeJA-unsplash.jpg" 
+                                             class="img-fluid h-100" alt="Agricultural drone over field">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="card-date">Fresh from farm to your fork</div>
+                                            <h5 class="card-title">Experience True Freshness: CROPNEST connects you to the feilds</h5>
+                                            <a href="customer.html" class="read-more-btn">
+                                                Read More <i class="fas fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Article 3 -->
+                        <div class="col-12">
+                            <div class="card blog-card">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                                             class="img-fluid h-100" alt="Drought-resistant crops">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <div class="card-date">Sep, 18/05/2025</div>
+                                            <h5 class="card-title">Seedlings that thrive in drought conditions for the arid months</h5>
+                                            <a href="#" class="read-more-btn">
+                                                Read More <i class="fas fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section (above footer) -->
+    <section class="faq-section py-5" style="background: var(--background-color);">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div class="faq-info pe-md-5">
+              <h2 class="mb-4" style="color: var(--primary-green); font-weight: 700;">Frequently Asked Questions</h2>
+              <p class="lead mb-3" style="color: #555;">Find answers to common questions about ordering, payment, delivery, and support. We are committed to making your experience smooth and hassle-free.</p>
+              <ul style="color: var(--secondary-green); font-size: 1.1rem;">
+                <li>Easy and secure ordering process</li>
+                <li>Multiple payment options</li>
+                <li>Fast and reliable delivery</li>
+                <li>Dedicated customer support</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="accordion" id="faqAccordion" style="border-radius: 18px; box-shadow: 0 4px 24px rgba(76,175,80,0.08); background: #fff;">
+              <div class="accordion-item" style="border-radius: 16px; margin-bottom: 12px; border: none;">
+                <h2 class="accordion-header" id="faq1">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1" style="border-radius: 16px; background: #fff; color: var(--primary-green); font-weight:600;">
+                    How do I place an order?
+                  </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body" style="background: #f8f9fa; border-radius: 0 0 16px 16px; color: var(--text-color);">
+                    Select your products, add them to the cart, and proceed to checkout. Fill in your details and choose a payment method to complete your order.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item" style="border-radius: 16px; margin-bottom: 12px; border: none;">
+                <h2 class="accordion-header" id="faq2">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2" style="border-radius: 16px; background: #fff; color: var(--primary-green); font-weight:600;">
+                    What payment methods are accepted?
+                  </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body" style="background: #f8f9fa; border-radius: 0 0 16px 16px; color: var(--text-color);">
+                    We accept Cash on Delivery, Credit/Debit Cards, and Bank Transfers for your convenience.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item" style="border-radius: 16px; margin-bottom: 12px; border: none;">
+                <h2 class="accordion-header" id="faq3">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3" style="border-radius: 16px; background: #fff; color: var(--primary-green); font-weight:600;">
+                    How long does delivery take?
+                  </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body" style="background: #f8f9fa; border-radius: 0 0 16px 16px; color: var(--text-color);">
+                    Delivery usually takes 3-7 business days depending on your location and product availability.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item" style="border-radius: 16px; margin-bottom: 12px; border: none;">
+                <h2 class="accordion-header" id="faq4">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4" style="border-radius: 16px; background: #fff; color: var(--primary-green); font-weight:600;">
+                    Can I get support if I have questions?
+                  </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body" style="background: #f8f9fa; border-radius: 0 0 16px 16px; color: var(--text-color);">
+                    Yes! Our support team is available 24/7 to assist you with any queries or issues you may have.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer-section" style="background:#fff;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <a href="#" class="footer-brand">CROPNEST</a>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-2 col-md-6 col-sm-6 mb-4">
+                    <div class="footer-column">
+                        <h5>Product</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Organic Fertilizer</a></li>
+                            <li><a href="#">Technology Irrigation</a></li>
+                            <li><a href="#">Agricultural Monitoring</a></li>
+                            <li><a href="#">Terrace Cultivation</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 col-sm-6 mb-4">
+                    <div class="footer-column">
+                        <h5>Company</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Resources</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">How We Work</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 col-sm-6 mb-4">
+                    <div class="footer-column">
+                        <h5>Services</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Soil Analysis</a></li>
+                            <li><a href="#">Crop Management</a></li>
+                            <li><a href="#">Pest Control</a></li>
+                            <li><a href="#">Sustainability Practices</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 col-sm-6 mb-4">
+                    <div class="footer-column">
+                        <h5>Innovations</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Precision Farming</a></li>
+                            <li><a href="#">Vertical Farming</a></li>
+                            <li><a href="#">Climate-Smart Agriculture</a></li>
+                            <li><a href="#">Agroecology</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 col-sm-6 mb-4">
+                    <div class="footer-column">
+                        <h5>Success Stories</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Testimonials</a></li>
+                            <li><a href="#">Case Studies</a></li>
+                            <li><a href="#">Customer Report</a></li>
+                            <li><a href="#">Impact Assessments</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p>Copyright © Buruh Tani 2020</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <div class="right-links">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms Of Use</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"> 
+        
+    </script>
+</body>
+</html>
