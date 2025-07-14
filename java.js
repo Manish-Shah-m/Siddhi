@@ -90,6 +90,113 @@
         }, delay + 2000);
       }
     }
+
+
+
+            $(document).ready(function() {
+            // Initialize all carousels
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 0,
+                nav: true,
+                dots: true,
+                items: 1,
+                center: true,
+                autoplay: true,
+                autoplayTimeout: 6000,
+                autoplayHoverPause: true,
+                navText: ['‹', '›'],
+                stagePadding: 0,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true,
+                        dots: true
+                    },
+                    768: {
+                        items: 1,
+                        nav: true,
+                        dots: true
+                    },
+                    1000: {
+                        items: 1,
+                        nav: true,
+                        dots: true
+                    }
+                }
+            });
+
+            // Handle category clicks
+            $('.poem-category').click(function() {
+                const category = $(this).data('category');
+                const carouselId = category + '-carousel';
+                
+                // Show the corresponding carousel
+                $('#' + carouselId).fadeIn(400);
+                $('body').css('overflow', 'hidden');
+                
+                // Refresh the carousel
+                setTimeout(() => {
+                    $('#' + carouselId + ' .owl-carousel').trigger('refresh.owl.carousel');
+                }, 100);
+            });
+
+            // Handle close carousel
+            $('.close-carousel').click(function() {
+                $(this).closest('.carousel-container').fadeOut(400);
+                $('body').css('overflow', 'auto');
+            });
+
+            // Close carousel when clicking outside
+            $('.carousel-container').click(function(e) {
+                if (e.target === this) {
+                    $(this).fadeOut(400);
+                    $('body').css('overflow', 'auto');
+                }
+            });
+
+            // Handle escape key
+            $(document).keyup(function(e) {
+                if (e.keyCode === 27) { // ESC key
+                    $('.carousel-container').fadeOut(400);
+                    $('body').css('overflow', 'auto');
+                }
+            });
+
+            // Add entrance animations
+            $('.poem-category').each(function(index) {
+                $(this).css({
+                    'opacity': '0',
+                    'transform': 'translateY(30px) scale(0.95)'
+                });
+                
+                setTimeout(() => {
+                    $(this).animate({
+                        'opacity': '1'
+                    }, 600).css({
+                        'transform': 'translateY(0) scale(1)',
+                        'transition': 'transform 0.6s ease'
+                    });
+                }, index * 150);
+            });
+
+            // Add title animation
+            $('.title').css({
+                'opacity': '0',
+                'transform': 'translateY(-20px)'
+            }).animate({
+                'opacity': '1'
+            }, 1000).css({
+                'transform': 'translateY(0)',
+                'transition': 'transform 0.8s ease'
+            });
+
+            // Handle window resize
+            $(window).resize(function() {
+                $('.owl-carousel').trigger('refresh.owl.carousel');
+            });
+        });
+
     
     // Function to create floating heart particles
     function createHeartParticles() {
@@ -776,8 +883,7 @@ finally make me give up on you."`
             id: 10,
             title: "In the Forest of Farewell",
             description: "My bruised soul clings to love that both binds and heals, as fleeting hope blooms in the ruins of sorrow.",
-            text: `**“In the Forest of Farewell”**
-
+            text: `
 My life, a map of bruises blue,
 Where silence sings, and sorrow grew.
 Each bone remembers ache and fall,
@@ -825,7 +931,111 @@ I’ll hold your name till my demise.
 In broken bones, in bruised refrain,
 You bloom like spring inside my pain.
 `
-        }
+        },
+         {
+            id: 11,
+            title: "I Knew You Before I Knew Myself",
+            description: "A soul-stirring confession of timeless love, where silence speaks, seasons embrace, and two hearts find home in each other.",
+            text: `
+They say some souls are places—
+not people.
+And I think yours is where I go
+every time the world turns too loud.
+It’s not a room or a memory,
+it’s a feeling:
+a kind of quiet
+that hums like home.
+
+I didn’t just meet you.
+I recognized you.
+Like a face from a dream
+I could never quite describe,
+but always knew I’d see again.
+Maybe we loved each other in another life—
+or maybe
+this is the first time the universe
+got it right.
+
+We don’t always talk much.
+But it’s in the stillness,
+when neither of us speaks,
+that I hear you best.
+Our silences aren't empty.
+They’re filled with the kind of trust
+that only grows
+when love stops trying to prove itself.
+
+Miracles used to sound dramatic—
+until I watched you laugh over coffee,
+or cry over something you couldn’t explain.
+Now I know:
+a miracle isn’t a storm in the sky.
+It’s a human being
+who lets you see all their weather
+and stays
+when yours begins to rain.
+
+If I were a season,
+I’d be late autumn—
+quiet, slow,
+always shedding something.
+And you—
+you’d be the sky that turns gold for me,
+without asking why I’m always falling.
+
+There’s a version of me
+that only exists when I’m with you.
+He’s not perfect—
+but he’s real.
+And he loves better,
+softer,
+truer.
+He doesn’t need to pretend
+he’s not afraid—
+because you never loved him less
+for his fear.
+
+I write letters to you in my head
+all day.
+I mail them through actions—
+a hand on your back,
+a joke you needed before you even asked.
+And if love had coordinates,
+mine would always point to wherever you are.
+Even if we argued.
+Even if we fell silent.
+You’re still the destination.
+
+You’ve always been the unfinished melody
+I’ve hummed when I couldn’t sleep.
+Now, your voice fills in the missing notes—
+and somehow,
+everything I feared I’d never understand
+starts to make sense in your company.
+
+You don’t calm me with logic.
+You calm me by existing.
+Each word you say
+is like thread
+pulling my scattered pieces together
+into something whole,
+something warm,
+something almost sacred.
+
+So no—
+this isn’t just love.
+It’s recognition.
+It’s return.
+It’s the quiet truth
+that after all the noise,
+I’ve finally arrived
+where I was always meant to be:
+
+in you.
+
+
+`
+         }
         
     ];
 
