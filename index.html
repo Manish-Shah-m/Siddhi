@@ -1,0 +1,2838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Beloved Siddhi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-black: #050505;
+            --bg-dark: #0d0d0d;
+            --text-white: #ffffff;
+            --text-cream: #f5f0eb;
+            --love-red: #e91e63;
+            --love-pink: #ea80b0;
+            --soft-pink: #f8bbd9;
+            --muted-rose: #d4627b;
+            --accent-gold: #d4af37;
+            --border-subtle: rgba(234, 128, 176, 0.25);
+            --glow-pink: rgba(234, 128, 176, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: var(--bg-black);
+            color: var(--text-cream);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        ::selection {
+            background: var(--muted-rose);
+            color: var(--bg-black);
+        }
+
+        /* Login Screen */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-black);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .login-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .login-container {
+            text-align: center;
+            padding: 3rem;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            color: var(--soft-pink);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            text-shadow: 0 0 30px var(--glow-pink);
+            letter-spacing: 2px;
+        }
+
+        .login-subtitle {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            color: var(--love-pink);
+            margin-bottom: 3rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .login-heart {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 2rem;
+            animation: heartPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .login-heart svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--love-pink);
+            filter: drop-shadow(0 0 10px var(--glow-pink));
+        }
+
+        .login-input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-cream);
+            text-align: center;
+            letter-spacing: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--love-pink);
+            box-shadow: 0 0 25px var(--glow-pink);
+        }
+
+        .login-input::placeholder {
+            letter-spacing: 2px;
+            color: rgba(248, 187, 217, 0.5);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            background: transparent;
+            border: 1px solid var(--love-pink);
+            color: var(--soft-pink);
+            cursor: pointer;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+            background: var(--love-pink);
+            color: var(--bg-black);
+            box-shadow: 0 0 30px var(--glow-pink);
+        }
+
+        .login-error {
+            color: var(--love-red);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-style: italic;
+        }
+
+        .login-error.visible {
+            opacity: 1;
+        }
+
+        .login-decoration {
+            position: absolute;
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--love-pink), transparent);
+        }
+
+        .login-decoration.left {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .login-decoration.right {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(to bottom, rgba(5, 5, 5, 0.98), rgba(5, 5, 5, 0.9));
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .navbar.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: var(--soft-pink);
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px var(--glow-pink);
+        }
+
+        .navbar-center {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .day-counter-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--border-subtle);
+            background: rgba(234, 128, 176, 0.05);
+        }
+
+        .day-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            color: var(--soft-pink);
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .day-separator {
+            width: 1px;
+            height: 16px;
+            background: var(--love-pink);
+            opacity: 0.5;
+        }
+
+        .day-text {
+            font-family: 'Lora', serif;
+            font-size: 0.85rem;
+            color: var(--love-pink);
+            font-style: italic;
+        }
+
+        .navbar-heart {
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--love-pink);
+            stroke-width: 1.5;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 0 5px var(--glow-pink));
+        }
+
+        .navbar-heart:hover,
+        .navbar-heart.filled {
+            fill: var(--love-red);
+            stroke: var(--love-red);
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 15px var(--love-red));
+        }
+
+        /* Love Message */
+        .love-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, var(--bg-dark), rgba(20, 10, 15, 0.98));
+            border: 1px solid var(--love-pink);
+            color: var(--soft-pink);
+            padding: 3rem 4rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            z-index: 2000;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 50px var(--glow-pink);
+            text-shadow: 0 0 20px var(--glow-pink);
+        }
+
+        .love-message.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .love-message-heart {
+            width: 35px;
+            height: 35px;
+            fill: var(--love-red);
+            margin-left: 0.5rem;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 10px var(--love-red));
+        }
+
+        .heart-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1999;
+        }
+
+        .heart-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            animation: floatUp 4s ease-out forwards;
+        }
+
+        .heart-particle svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--love-pink);
+            filter: drop-shadow(0 0 5px var(--glow-pink));
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.5) rotate(0deg);
+            }
+            15% {
+                opacity: 1;
+            }
+            85% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-250px) translateX(var(--drift)) scale(1) rotate(360deg);
+            }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, rgba(234, 128, 176, 0.03) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-image {
+            position: absolute;
+            width: 550px;
+            height: 380px;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, 100vh);
+            opacity: 0;
+            transition: all 1s ease-out;
+            overflow: hidden;
+            z-index: 3;
+            border: 1px solid var(--love-pink);
+            box-shadow: 0 0 40px var(--glow-pink);
+        }
+
+        .hero-image.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(10%) contrast(1.05);
+        }
+
+        .hero-text {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.5;
+            font-weight: 400;
+            color: var(--soft-pink);
+            position: relative;
+            z-index: 1;
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+            text-shadow: 0 0 30px var(--glow-pink);
+        }
+
+        .hero-subtitle {
+            font-family: 'Lora', serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--love-pink);
+            font-style: italic;
+            margin-top: 1.5rem;
+            opacity: 0.9;
+            letter-spacing: 2px;
+        }
+
+        .hero-decoration {
+            position: absolute;
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--love-pink), transparent);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-family: 'Lora', serif;
+            font-size: 0.8rem;
+            color: var(--love-pink);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--love-pink);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(10px); }
+            60% { transform: translateX(-50%) translateY(5px); }
+        }
+
+        /* Parallax Section */
+        .parallax-section {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(to bottom, var(--bg-black), var(--bg-dark), var(--bg-black));
+        }
+
+        .parallax-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .parallax-text {
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--love-pink);
+            opacity: 0.4;
+            white-space: nowrap;
+            position: absolute;
+            will-change: transform;
+            letter-spacing: 20px;
+        }
+
+        .parallax-text.solid {
+            -webkit-text-stroke: none;
+            color: var(--love-pink);
+            opacity: 0.1;
+        }
+
+        .parallax-center-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .parallax-quote {
+            font-family: 'Lora', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-style: italic;
+            color: var(--soft-pink);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-shadow: 0 0 20px var(--glow-pink);
+        }
+
+        .parallax-quote-author {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--love-pink);
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+
+        /* Music Section */
+        .music-section {
+            width: 100%;
+            padding: 6rem 2rem;
+            position: relative;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .section-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--soft-pink);
+            margin-bottom: 1rem;
+            text-align: left;
+            padding-left: 2rem;
+            letter-spacing: 4px;
+            font-weight: 600;
+            text-shadow: 0 0 20px var(--glow-pink);
+        }
+
+        .section-subheading {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            color: var(--love-pink);
+            font-style: italic;
+            padding-left: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .music-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .music-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .music-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem;
+            background: rgba(234, 128, 176, 0.03);
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-item:hover {
+            background: rgba(234, 128, 176, 0.1);
+            border-color: var(--love-pink);
+            box-shadow: 0 0 20px rgba(234, 128, 176, 0.15);
+        }
+
+        .music-item.playing {
+            background: rgba(234, 128, 176, 0.15);
+            border-color: var(--love-pink);
+            box-shadow: 0 0 30px rgba(234, 128, 176, 0.2);
+        }
+
+        .music-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: var(--love-pink);
+            opacity: 0.6;
+            min-width: 40px;
+        }
+
+        .music-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .music-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--soft-pink);
+            margin-bottom: 0.3rem;
+        }
+
+        .music-artist {
+            font-family: 'Lora', serif;
+            font-size: 0.95rem;
+            color: var(--love-pink);
+            font-style: italic;
+        }
+
+        .music-lyrics-preview {
+            font-family: 'Lora', serif;
+            font-size: 0.9rem;
+            color: var(--text-cream);
+            opacity: 0.7;
+            font-style: italic;
+            margin-top: 0.5rem;
+            display: none;
+            max-height: 100px;
+            overflow-y: auto;
+            line-height: 1.6;
+            padding-right: 10px;
+        }
+
+        .music-lyrics-preview::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .music-lyrics-preview::-webkit-scrollbar-track {
+            background: rgba(234, 128, 176, 0.1);
+        }
+
+        .music-lyrics-preview::-webkit-scrollbar-thumb {
+            background: var(--love-pink);
+            border-radius: 2px;
+        }
+
+        .music-item.playing .music-lyrics-preview {
+            display: block;
+        }
+
+        .music-play-btn {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--love-pink);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .music-play-btn:hover {
+            background: var(--love-pink);
+            box-shadow: 0 0 15px var(--glow-pink);
+        }
+
+        .music-play-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--soft-pink);
+        }
+
+        .music-play-btn:hover svg {
+            fill: var(--bg-black);
+        }
+
+        /* Floating Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, var(--bg-black), rgba(5, 5, 5, 0.98));
+            border-top: 1px solid var(--love-pink);
+            padding: 1rem 2rem;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            box-shadow: 0 -5px 30px rgba(234, 128, 176, 0.15);
+        }
+
+        .music-player.visible {
+            transform: translateY(0);
+        }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .player-now-playing {
+            font-family: 'Lora', serif;
+            font-size: 0.75rem;
+            color: var(--love-pink);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .player-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--soft-pink);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .player-btn {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .player-btn:hover {
+            border-color: var(--love-pink);
+            box-shadow: 0 0 10px var(--glow-pink);
+        }
+
+        .player-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--soft-pink);
+        }
+
+        .player-btn.main {
+            width: 50px;
+            height: 50px;
+            border-color: var(--love-pink);
+        }
+
+        .player-progress {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 3px;
+            background: var(--border-subtle);
+            cursor: pointer;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--love-pink), var(--soft-pink));
+            width: 0%;
+            transition: width 0.1s linear;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--glow-pink);
+        }
+
+        .player-time {
+            font-family: 'Lora', serif;
+            font-size: 0.85rem;
+            color: var(--love-pink);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .player-close {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .player-close svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--love-pink);
+            stroke-width: 1.5;
+            fill: none;
+            transition: all 0.3s ease;
+        }
+
+        .player-close:hover svg {
+            stroke: var(--soft-pink);
+        }
+
+        /* Poems Section */
+        .poems-section {
+            width: 100%;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .poems-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .poem-card {
+            border: 1px solid var(--border-subtle);
+            margin-bottom: -1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(234, 128, 176, 0.02);
+        }
+
+        .poem-card:hover {
+            background: rgba(234, 128, 176, 0.08);
+            border-color: var(--love-pink);
+        }
+
+        .poem-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+        }
+
+        .poem-header-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .poem-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: var(--love-pink);
+            opacity: 0.6;
+            min-width: 30px;
+        }
+
+        .poem-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--soft-pink);
+            font-weight: 400;
+        }
+
+        .poem-card-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .poem-card-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--love-pink);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        /* Show More Button */
+        .show-more-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            background: transparent;
+            border: 1px solid var(--love-pink);
+            color: var(--soft-pink);
+            cursor: pointer;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+        }
+
+        .show-more-btn:hover {
+            background: var(--love-pink);
+            color: var(--bg-black);
+            box-shadow: 0 0 25px var(--glow-pink);
+        }
+
+        .show-more-btn.hidden {
+            display: none;
+        }
+
+        /* Poem Modal */
+        .poem-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .poem-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .poem-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            background: linear-gradient(135deg, var(--bg-dark), rgba(20, 10, 15, 0.98));
+            border: 1px solid var(--love-pink);
+            padding: 3rem;
+            overflow-y: auto;
+            animation: modalSlideIn 0.4s ease;
+            box-shadow: 0 0 60px var(--glow-pink);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .poem-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .poem-modal-close:hover {
+            border-color: var(--love-pink);
+            background: rgba(234, 128, 176, 0.1);
+        }
+
+        .poem-modal-close svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--love-pink);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .poem-modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--soft-pink);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            text-shadow: 0 0 20px var(--glow-pink);
+        }
+
+        .poem-modal-divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--love-pink), transparent);
+            margin: 1.5rem 0 2rem;
+        }
+
+        .poem-modal-text {
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            line-height: 2.2;
+            color: var(--text-cream);
+            font-style: italic;
+            white-space: pre-line;
+        }
+
+        .poem-modal-dedication {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--love-pink);
+            margin-top: 2.5rem;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        /* Memory Gallery */
+        .memory-gallery {
+            width: 100%;
+            padding: 6rem 2rem;
+            position: relative;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--love-pink);
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid var(--love-pink);
+            opacity: 0.9;
+        }
+
+        .memory-item {
+            width: 100%;
+            height: 280px;
+            background: var(--bg-black);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .memory-item:hover {
+            background: rgba(234, 128, 176, 0.08);
+        }
+
+        .memory-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(234, 128, 176, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .memory-item:hover::before {
+            opacity: 1;
+        }
+
+        .memory-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .memory-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            color: var(--love-pink);
+            opacity: 0.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .memory-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: var(--soft-pink);
+            font-weight: 400;
+            transition: all 0.4s ease;
+        }
+
+        .memory-item:hover .memory-title {
+            transform: translateY(-5px);
+            text-shadow: 0 0 20px var(--glow-pink);
+        }
+
+        /* Carousel */
+        .carousel-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 5, 0.98);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .carousel-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .carousel-slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .carousel-image {
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            max-height: 55vh;
+            object-fit: contain;
+            margin-bottom: 2rem;
+            border: 1px solid var(--love-pink);
+            box-shadow: 0 0 30px var(--glow-pink);
+        }
+
+        .carousel-info {
+            text-align: center;
+            max-width: 550px;
+        }
+
+        .carousel-text {
+            font-family: 'Lora', serif;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            color: var(--text-cream);
+            font-style: italic;
+        }
+
+        .carousel-meta {
+            font-family: 'Lora', serif;
+            font-size: 0.9rem;
+            color: var(--love-pink);
+            letter-spacing: 1px;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 1px solid var(--love-pink);
+            color: var(--soft-pink);
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(234, 128, 176, 0.15);
+            box-shadow: 0 0 15px var(--glow-pink);
+        }
+
+        .carousel-prev { left: 0; }
+        .carousel-next { right: 0; }
+
+        .carousel-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-close:hover {
+            border-color: var(--love-pink);
+        }
+
+        .carousel-close svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--soft-pink);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--love-pink);
+            width: 24px;
+            box-shadow: 0 0 10px var(--glow-pink);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-subtle);
+            background: var(--bg-black);
+        }
+
+        .footer-heart {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 1.5rem;
+            animation: heartPulse 2s ease-in-out infinite;
+        }
+
+        .footer-heart svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--love-pink);
+            filter: drop-shadow(0 0 10px var(--glow-pink));
+        }
+
+        .footer-text {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            color: var(--love-pink);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-signature {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--soft-pink);
+            font-weight: 500;
+            text-shadow: 0 0 15px var(--glow-pink);
+        }
+
+        .footer-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--love-pink);
+            margin-top: 1.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--love-pink), transparent);
+            margin: 2rem auto;
+        }
+
+        /* Floating Words - Updated Animation */
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        #ui .love {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -225px 0 0 -225px;
+            --i: 1;
+        }
+
+        #ui .love:last-child .love_word {
+            color: var(--love-pink);
+            font-size: 1.6rem;
+            text-shadow: 0 0 15px #fff;
+        }
+
+        #ui .love_word {
+            color: var(--love-pink);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            transform: translateY(-100%) rotateZ(-30deg);
+            text-shadow: 0 0 10px #fff;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            opacity: 0.9;
+        }
+
+        #ui .love_horizontal {
+            animation: horizontal 10000ms infinite alternate ease-in-out;
+            animation-delay: calc(var(--i) * -300ms);
+        }
+
+        #ui .love_vertical {
+            animation: vertical 20000ms infinite linear;
+            animation-delay: calc(var(--i) * -300ms);
+        }
+
+        @keyframes horizontal {
+            from { transform: translateX(0px); }
+            to   { transform: translateX(450px); }
+        }
+
+        @keyframes vertical {
+            0%   { transform: translateY(180px); }
+            10%  { transform: translateY(45px); }
+            15%  { transform: translateY(4.5px); }
+            18%  { transform: translateY(0px); }
+            20%  { transform: translateY(4.5px); }
+            22%  { transform: translateY(34.61538px); }
+            24%  { transform: translateY(64.28571px); }
+            25%  { transform: translateY(112.5px); }
+            26%  { transform: translateY(64.28571px); }
+            28%  { transform: translateY(34.61538px); }
+            30%  { transform: translateY(4.5px); }
+            32%  { transform: translateY(0px); }
+            35%  { transform: translateY(4.5px); }
+            40%  { transform: translateY(45px); }
+            50%  { transform: translateY(180px); }
+            71%  { transform: translateY(428.57143px); }
+            72.5%{ transform: translateY(441.17647px); }
+            75%  { transform: translateY(450px); }
+            77.5%{ transform: translateY(441.17647px); }
+            79%  { transform: translateY(428.57143px); }
+            100% { transform: translateY(180px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar { 
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .navbar-center {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .day-counter-wrapper {
+                padding: 0.5rem 1rem;
+            }
+
+            .day-number {
+                font-size: 0.95rem;
+            }
+
+            .day-text {
+                font-size: 0.75rem;
+            }
+
+            .login-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-image { 
+                width: 90%;
+                max-width: 320px;
+                height: 260px; 
+            }
+            
+            .hero-text { 
+                font-size: clamp(1.5rem, 5vw, 2rem); 
+            }
+
+            .love-message {
+                padding: 2rem;
+                font-size: 2rem;
+            }
+
+            .section-heading {
+                padding-left: 1rem;
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+
+            .section-subheading {
+                padding-left: 1rem;
+            }
+
+            .music-container,
+            .poems-container {
+                padding: 0 1rem;
+            }
+
+            .music-item {
+                padding: 1.2rem 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .music-number {
+                font-size: 1.2rem;
+                min-width: 30px;
+            }
+
+            .music-title {
+                font-size: 1.1rem;
+            }
+
+            .music-play-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            .music-player {
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+            }
+
+            .player-info {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .player-progress {
+                width: 100%;
+                order: 3;
+            }
+
+            .player-controls {
+                gap: 0.5rem;
+            }
+
+            .player-btn {
+                width: 35px;
+                height: 35px;
+            }
+
+            .player-btn.main {
+                width: 45px;
+                height: 45px;
+            }
+
+            .poem-card-header {
+                padding: 1.2rem 1.5rem;
+            }
+
+            .poem-title {
+                font-size: 1.2rem;
+            }
+
+            .poem-modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .poem-modal-title {
+                font-size: 2rem;
+            }
+
+            .poem-modal-text {
+                font-size: 1.05rem;
+            }
+
+            .memory-grid { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .memory-item { 
+                height: 200px; 
+            }
+
+            .carousel-nav { 
+                width: 40px; 
+                height: 40px; 
+            }
+            
+            .carousel-prev { left: 10px; }
+            .carousel-next { right: 10px; }
+
+            .parallax-text {
+                font-size: clamp(3rem, 12vw, 6rem);
+                letter-spacing: 10px;
+            }
+
+            .parallax-quote {
+                font-size: clamp(1.2rem, 4vw, 1.8rem);
+            }
+
+            #ui .love_word {
+                font-size: 1.1rem;
+            }
+
+            .footer {
+                padding: 3rem 1.5rem;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+
+            .navbar-heart {
+                width: 24px;
+                height: 24px;
+            }
+
+            .hero-image {
+                height: 220px;
+            }
+
+            .hero-text {
+                font-size: clamp(1.3rem, 5vw, 1.8rem);
+            }
+
+            .love-message {
+                font-size: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .music-item {
+                padding: 1rem;
+            }
+
+            .music-lyrics-preview {
+                font-size: 0.8rem;
+            }
+
+            .poem-header-content {
+                gap: 1rem;
+            }
+
+            .poem-number {
+                font-size: 1rem;
+                min-width: 25px;
+            }
+
+            .memory-number {
+                font-size: 2rem;
+            }
+
+            .memory-title {
+                font-size: 1.3rem;
+            }
+
+            #ui .love_word {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-container">
+            <div class="login-decoration left"></div>
+            <div class="login-decoration right"></div>
+            <div class="login-heart">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            <h1 class="login-title">Welcome, Sanu</h1>
+            <p class="login-subtitle">A Little Space Made with Love</p>
+            <div class="login-input-group">
+                <input type="password" class="login-input" id="loginPassword" placeholder="..." maxlength="6">
+            </div>
+            <button class="login-btn" id="loginBtn">Enter</button>
+            <p class="login-error" id="loginError">Incorrect password</p>
+        </div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="navbar-brand">M & S</div>
+        <div class="navbar-center">
+            <div class="day-counter-wrapper">
+                <div class="day-number" id="dayCounter">Day 679</div>
+                <div class="day-separator"></div>
+                <div class="day-text">of loving you</div>
+            </div>
+        </div>
+        <svg class="navbar-heart" id="heartIcon" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+    </nav>
+
+    <section class="hero-section" id="heroSection">
+        <div class="hero-image" id="heroImage">
+            <img src="IMAGE/EYE.jpeg" alt="Beloved">
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-text">I get lost in your eyes just like dust from the skies, it's your body or nobody I refuse to compromise</h1>
+            <p class="hero-subtitle">~ Forever yours ~</p>
+            <div class="hero-decoration"></div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+        </div>
+    </section>
+
+    <div class="love-message" id="loveMessage">
+        I Love You Siddhi
+        <svg class="love-message-heart" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+    </div>
+    <div class="heart-particles" id="heartParticles"></div>
+
+    <section class="parallax-section" id="parallaxSection">
+        <div class="parallax-container">
+            <div class="parallax-layer">
+                <div class="parallax-text" style="top: 10%;">FOREVER</div>
+                <div class="parallax-text solid" style="top: 35%;">BELOVED</div>
+                <div class="parallax-text" style="top: 60%;">ALWAYS</div>
+                <div class="parallax-text solid" style="top: 85%;">ETERNAL</div>
+            </div>
+            <div class="parallax-center-text">
+                <p class="parallax-quote">"In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."</p>
+                <p class="parallax-quote-author">Siddhi❤️</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Music Section -->
+<section class="music-section">
+    <h2 class="section-heading">Harmonies</h2>
+    <p class="section-subheading">Melodies that reminds me of UH</p>
+    <div class="music-container">
+        <div class="music-list" id="musicList"></div>
+    </div>
+</section>
+
+<!-- Floating Music Player -->
+<div class="music-player" id="musicPlayer">
+    <div class="player-info">
+        <div>
+            <div class="player-now-playing">Now Playing</div>
+            <div class="player-title" id="playerTitle">Select a song</div>
+        </div>
+    </div>
+    <div class="player-controls">
+        <button class="player-btn" id="prevBtn">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="player-btn main" id="playPauseBtn">
+            <svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="player-btn" id="nextBtn">
+            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+    </div>
+    <div class="player-progress">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <span class="player-time"><span id="currentTime">0:00</span> / <span id="totalTime">0:00</span></span>
+    </div>
+    <button class="player-close" id="playerClose">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+</div>
+    <!-- Poems Section -->
+    <section class="poems-section">
+        <h2 class="section-heading">Confessions in verse</h2>
+        <p class="section-subheading">Inked with affection</p>
+        <div class="poems-container" id="poemsContainer">
+            <!-- Poems will be inserted here -->
+        </div>
+    </section>
+
+    <!-- Poem Modal -->
+    <div class="poem-modal" id="poemModal">
+        <div class="poem-modal-content">
+            <button class="poem-modal-close" id="poemModalClose">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <h2 class="poem-modal-title" id="poemModalTitle"></h2>
+            <div class="poem-modal-divider"></div>
+            <p class="poem-modal-text" id="poemModalText"></p>
+            <p class="poem-modal-dedication">For Siddhi</p>
+        </div>
+    </div>
+
+    <section class="memory-gallery">
+        <h2 class="section-heading">Our Memories</h2>
+        <p class="section-subheading">Moments we have shared together</p>
+        <div class="memory-grid">
+            <div class="memory-item" data-gallery="1">
+                <div class="memory-content">
+                    <div class="memory-number">01</div>
+                    <h2 class="memory-title">First Moments</h2>
+                </div>
+            </div>
+            <div class="memory-item" data-gallery="2">
+                <div class="memory-content">
+                    <div class="memory-number">02</div>
+                    <h2 class="memory-title">Beautiful Days</h2>
+                </div>
+            </div>
+            <div class="memory-item" data-gallery="3">
+                <div class="memory-content">
+                    <div class="memory-number">03</div>
+                    <h2 class="memory-title">Sweet Memories</h2>
+                </div>
+            </div>
+            <div class="memory-item" data-gallery="4">
+                <div class="memory-content">
+                    <div class="memory-number">04</div>
+                    <h2 class="memory-title">Forever Together</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="carousel-overlay" id="carouselOverlay">
+        <div class="carousel-container">
+            <button class="carousel-nav carousel-prev" id="prevSlide">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+            </button>
+            <button class="carousel-nav carousel-next" id="nextSlide">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9,18 15,12 9,6"/></svg>
+            </button>
+            <button class="carousel-close" id="closeCarousel">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div id="carouselContent"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-heart">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
+        <p class="footer-text">Made with love, for the one I love</p>
+        <p class="footer-signature">Forever Yours</p>
+        <div class="footer-divider"></div>
+        <p class="footer-date">Since. Day One</p>
+    </footer>
+
+    <div id="ui"></div>
+
+    <script>
+        // Login System
+        const loginOverlay = document.getElementById('loginOverlay');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginError = document.getElementById('loginError');
+        const correctPassword = '410-59';
+
+        // Check if already logged in
+        if (sessionStorage.getItem('loggedIn') === 'true') {
+            loginOverlay.classList.add('hidden');
+        }
+
+        loginBtn.addEventListener('click', attemptLogin);
+        loginPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') attemptLogin();
+        });
+
+        function attemptLogin() {
+            if (loginPassword.value === correctPassword) {
+                sessionStorage.setItem('loggedIn', 'true');
+                loginOverlay.classList.add('hidden');
+            } else {
+                loginError.classList.add('visible');
+                loginPassword.value = '';
+                setTimeout(() => {
+                    loginError.classList.remove('visible');
+                }, 2000);
+            }
+        }
+
+        // Day Counter
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const startDate = new Date(today);
+        startDate.setDate(startDate.getDate() - 679 + 1);
+
+        function updateDayCounter() {
+            const now = new Date();
+            now.setHours(0, 0, 0, 0);
+            const diffTime = now - startDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            document.getElementById("dayCounter").textContent = "Day " + diffDays;
+        }
+
+        updateDayCounter();
+        setInterval(updateDayCounter, 1000 * 60);
+
+        // Love Animation Generator - Updated
+        const N = 100; 
+        const ui = document.getElementById('ui');
+
+        for (let i = 1; i <= N; i++) {
+            const love = document.createElement('div');
+            love.className = 'love';
+            love.style.setProperty('--i', i);
+
+            const h = document.createElement('div');
+            h.className = 'love_horizontal';
+
+            const v = document.createElement('div');
+            v.className = 'love_vertical';
+
+            const word = document.createElement('div');
+            word.className = 'love_word';
+            word.textContent = 'I love you';
+
+            v.appendChild(word);
+            h.appendChild(v);
+            love.appendChild(h);
+            ui.appendChild(love);
+        }
+
+        // Music Data - Support for longer lyrics
+                    // Music Data - With your actual audio files and time ranges
+const musicData = [
+    {
+        title: "O Rangrez",
+        artist: " Shreya Ghoshal & Javed Bashir",
+        description: "Soak My Soul Into Yours - Transform me into your essence, color me in the hues of you.",
+        audioSrc: "IMAGE/O Rangrez.mp3",
+        startTime: 242,
+        endTime: 300
+    },
+    {
+        title: "Charkha",
+        artist: "Lakhwinder Wadali",
+        description: "Where Will I Be Without You - Tell me, my love, where else can I go without you?",
+        audioSrc: "IMAGE/Charka feat Puran Chand Wadali - Lakhwinder Wadali.mp3",
+        startTime: 285,
+        endTime: 330
+    },
+    {
+        title: "Heer",
+        artist: "Afusic",
+        description: "I See Nothing Beyond You - My world ends after you, every face is strange without you.",
+        audioSrc: "IMAGE/heer.mp3",
+        startTime: 60.7,
+        endTime: 90
+    },
+    {
+        title: "Pal Pal",
+        artist: "Afusic & Talwiinder",
+        description: "We Will Grow Where Love Blooms - Just as colors blend, we will become one.",
+        audioSrc: "IMAGE/palpal.mp3",
+        startTime: 146,
+        endTime: 190
+    },
+    {
+        title: "Aashiq Tera",
+        artist: "Sohail Sen",
+        description: "In Your Hands - I'm giving my heart to you completely. Break it or protect it, just love me your way.",
+        audioSrc: "IMAGE/Aashiq Tera - Sohail Sen.mp3",
+        startTime: 167,
+        endTime: 250
+    },
+    {
+        title: "Tum Jo Aaye",
+        artist: "Rahat Fateh Ali Khan & Tulsi Kumar",
+        description: "You Are My Ultimate Desire - I have written your name above everything in my life.",
+        audioSrc: "IMAGE/Tum Jo Aaye (Once Upon A Time In Mumbaai).mp3",
+        startTime: 124,
+        endTime: 180
+    },
+    {
+        title: "Main Agar",
+        artist: "Atif Aslam",
+        description: "In a World of Strangers, You - This world feels like a stranger, but you're the only one who's mine.",
+        audioSrc: "IMAGE/Atif Aslam - Main Agar _ Lyrical Video _ Salman Khan, Sohail Khan _ Tubelight _ Pritam Chakraborty-yt.savetube.me.mp3",
+        startTime: 64,
+        endTime: 120
+    },
+    {
+        title: "Kinna Sona",
+        artist: "Sunil Kamath",
+        description: "You, My Maahi - You have become the heartbeat of my chest, my beloved, my true love.",
+        audioSrc: "IMAGE/Kinna Sona FULL VIDEO Song - Bhaag Johnny _ Kunal Khemu, Zoa Morani _ Sunil Kamath-yt.savetube.me.mp3",
+        startTime: 47,
+        endTime: 120
+    }
+];
+
+// DOM Elements
+const musicList = document.getElementById('musicList');
+const musicPlayer = document.getElementById('musicPlayer');
+const playerTitle = document.getElementById('playerTitle');
+const progressFill = document.querySelector('.progress-fill');
+const progressBar = document.querySelector('.progress-bar');
+const currentTimeDisplay = document.getElementById('currentTime');
+const totalTimeDisplay = document.getElementById('totalTime');
+
+// Audio and State
+let audio = new Audio();
+let currentPlayingIndex = -1;
+let isPlaying = false;
+let animationFrameId = null;
+
+// Format time from seconds to MM:SS
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Calculate duration string from start and end time
+function getDurationString(startTime, endTime) {
+    const duration = endTime - startTime;
+    return formatTime(duration);
+}
+
+// Update progress bar and time display
+function updateProgress() {
+    if (currentPlayingIndex >= 0 && isPlaying) {
+        const song = musicData[currentPlayingIndex];
+        const currentTime = audio.currentTime;
+        const startTime = song.startTime;
+        const endTime = song.endTime;
+        const duration = endTime - startTime;
+        const elapsed = currentTime - startTime;
+        
+        // Calculate progress percentage
+        const progress = Math.max(0, Math.min(100, (elapsed / duration) * 100));
+        progressFill.style.width = `${progress}%`;
+        
+        // Update time displays
+        currentTimeDisplay.textContent = formatTime(Math.max(0, elapsed));
+        totalTimeDisplay.textContent = formatTime(duration);
+        
+        // Check if we've reached the end time
+        if (currentTime >= endTime) {
+            // Move to next song or stop
+            if (currentPlayingIndex < musicData.length - 1) {
+                playSong(currentPlayingIndex + 1);
+            } else {
+                stopPlayback();
+            }
+            return;
+        }
+        
+        animationFrameId = requestAnimationFrame(updateProgress);
+    }
+}
+
+// Stop playback completely
+function stopPlayback() {
+    audio.pause();
+    isPlaying = false;
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
+    document.getElementById('playIcon').innerHTML = '<path d="M8 5v14l11-7z"/>';
+    document.querySelectorAll('.music-item').forEach(item => item.classList.remove('playing'));
+}
+
+// Render Music List
+function renderMusicList() {
+    musicList.innerHTML = '';
+    musicData.forEach((song, index) => {
+        const duration = getDurationString(song.startTime, song.endTime);
+        const item = document.createElement('div');
+        item.className = 'music-item';
+        item.innerHTML = `
+            <div class="music-number">${String(index + 1).padStart(2, '0')}</div>
+            <div class="music-info">
+                <div class="music-title">${song.title}</div>
+                <div class="music-artist">${song.artist}</div>
+                <div class="music-lyrics-preview">"${song.description}"</div>
+            </div>
+            <button class="music-play-btn" data-index="${index}">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+        `;
+        item.querySelector('.music-play-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSong(index);
+        });
+        item.addEventListener('click', () => playSong(index));
+        musicList.appendChild(item);
+    });
+}
+
+// Play a specific song
+function playSong(index) {
+    const allItems = document.querySelectorAll('.music-item');
+    allItems.forEach(item => item.classList.remove('playing'));
+    
+    // Cancel any existing animation frame
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
+    
+    if (currentPlayingIndex === index && isPlaying) {
+        // Pause current song
+        audio.pause();
+        isPlaying = false;
+        document.getElementById('playIcon').innerHTML = '<path d="M8 5v14l11-7z"/>';
+    } else {
+        const song = musicData[index];
+        
+        // If it's a different song, load new audio
+        if (currentPlayingIndex !== index) {
+            audio.src = song.audioSrc;
+            audio.load();
+            currentPlayingIndex = index;
+        }
+        
+        // Set start time and play
+        audio.currentTime = song.startTime;
+        
+        audio.play().then(() => {
+            isPlaying = true;
+            allItems[index].classList.add('playing');
+            playerTitle.textContent = `${song.title} - ${song.artist}`;
+            musicPlayer.classList.add('visible');
+            document.getElementById('playIcon').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            
+            // Update total time display
+            const duration = song.endTime - song.startTime;
+            totalTimeDisplay.textContent = formatTime(duration);
+            
+            // Start updating progress
+            updateProgress();
+        }).catch(error => {
+            console.error('Error playing audio:', error);
+            alert('Error playing audio. Please check that the audio file exists at: ' + song.audioSrc);
+        });
+    }
+}
+
+// Play/Pause button
+document.getElementById('playPauseBtn').addEventListener('click', () => {
+    if (currentPlayingIndex >= 0) {
+        if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+            document.getElementById('playIcon').innerHTML = '<path d="M8 5v14l11-7z"/>';
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        } else {
+            const song = musicData[currentPlayingIndex];
+            // Make sure we're within the valid time range
+            if (audio.currentTime < song.startTime || audio.currentTime >= song.endTime) {
+                audio.currentTime = song.startTime;
+            }
+            audio.play().then(() => {
+                isPlaying = true;
+                document.getElementById('playIcon').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+                document.querySelectorAll('.music-item')[currentPlayingIndex].classList.add('playing');
+                updateProgress();
+            });
+        }
+    }
+});
+
+// Next button
+document.getElementById('nextBtn').addEventListener('click', () => {
+    if (currentPlayingIndex < musicData.length - 1) {
+        playSong(currentPlayingIndex + 1);
+    } else {
+        playSong(0);
+    }
+});
+
+// Previous button
+document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentPlayingIndex > 0) {
+        playSong(currentPlayingIndex - 1);
+    } else {
+        playSong(musicData.length - 1);
+    }
+});
+
+// Progress bar click to seek
+progressBar.addEventListener('click', (e) => {
+    if (currentPlayingIndex >= 0) {
+        const song = musicData[currentPlayingIndex];
+        const rect = progressBar.getBoundingClientRect();
+        const clickPosition = (e.clientX - rect.left) / rect.width;
+        const duration = song.endTime - song.startTime;
+        const seekTime = song.startTime + (clickPosition * duration);
+        
+        // Ensure seek time is within bounds
+        audio.currentTime = Math.max(song.startTime, Math.min(song.endTime, seekTime));
+        
+        if (!isPlaying) {
+            // Update display even when paused
+            const elapsed = audio.currentTime - song.startTime;
+            const progress = (elapsed / duration) * 100;
+            progressFill.style.width = `${progress}%`;
+            currentTimeDisplay.textContent = formatTime(elapsed);
+        }
+    }
+});
+
+// Close player button
+document.getElementById('playerClose').addEventListener('click', () => {
+    audio.pause();
+    audio.currentTime = 0;
+    musicPlayer.classList.remove('visible');
+    isPlaying = false;
+    currentPlayingIndex = -1;
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
+    document.querySelectorAll('.music-item').forEach(item => item.classList.remove('playing'));
+    progressFill.style.width = '0%';
+});
+
+// Handle audio ended event
+audio.addEventListener('ended', () => {
+    if (currentPlayingIndex < musicData.length - 1) {
+        playSong(currentPlayingIndex + 1);
+    } else {
+        stopPlayback();
+    }
+});
+
+// Handle audio errors
+audio.addEventListener('error', (e) => {
+    console.error('Audio error:', e);
+    alert('Error loading audio file. Please check the file path.');
+});
+
+// Initialize the music list
+renderMusicList();
+
+                // Poems Data - Support for longer poems
+        const poemsInitial = [
+            {
+                title: "The Love You Wish To Feel",
+                text: `Maya,
+Tell me - How so you wish to be adored?
+With whishpered words or silence poured?
+Shall I hold your hand or touch your soul?
+Teach me to make your wishes whole.
+
+"They say : To love is to learn, and to learn is to listen."
+
+What is the thrill of fingers entwined,
+The rush of hearts, the butterflies refined?
+How does it feel when the moon glows,
+or the sun dips low and the evening slows?
+
+If love's a prayer, I'll learn each line,
+To praise you in a way divine,
+Your laughter, your tears, I'll hold them all,
+Teach me to catch you if you ever fall.
+
+Guide me Siddhi, I will follow through,
+Each moment a lesson in loving you,
+With sunsets, stars & skies above,
+Show me how you wished to be loved.
+
+- I love for eternity & more.
+Word`
+            },
+            {
+                title: "If You Only Knew",
+                text: `If You Only Knew
+Siddhi—
+if you could feel
+even a flicker
+of the fire I carry for you,
+
+your knees would forget the ground.
+Your breath—
+a bird caught mid-sky—
+would falter
+beneath the weight
+of everything I’ve never said aloud.
+
+If you could truly know
+how I love you,
+your heart would shatter,
+not from pain,
+but from awe.
+
+You’d collapse
+into the truth
+like rain into the ocean—
+no longer knowing
+where you end
+and where I begin.
+
+The world would halt.
+Clocks would forget how to tick.
+Every song ever written
+would fall silent
+in reverence.
+
+The moon,
+so proud, so distant,
+would scatter its bones across the black
+just to make room
+for your name in the stars.
+
+The sun—
+once a tyrant of light—
+would dim in shame,
+realizing
+it had never truly warmed
+anything the way you warm me
+by simply existing.
+
+Siddhi,
+I do not love you like mortals do.
+I do not love you with skin, or lips, or hands.
+I love you
+with the ache of galaxies,
+with the silence between lightning and thunder,
+with the breath God took
+before saying, “Let there be light.”
+
+If infinity had a heartbeat,
+it would echo mine
+whispering your name.
+Again.
+And again.
+And again.
+
+So don’t ask me
+how deep this love runs—
+ask the stars that died
+so you could be born.
+Ask the rivers
+why they still move
+without ever reaching you.
+Ask the night
+why it weeps
+when it remembers
+you are not mine.
+
+And if you cry—
+know this:
+your tears are prayers
+my soul has already spoken.
+`
+            },
+            {
+                title: "I Love You Raw",
+                text: `Siddhi-
+Give me your anger, your shame—
+the heat in your chest when the world doesn't listen,
+the words you swallow just to keep peace,
+the tears you hide in a smile that fools everyone but me.
+
+Give me the version of you
+that stares too long at the mirror,
+counting flaws like sins.
+Let me kiss each one like a blessing.
+
+Bring me the cracked voice at midnight,
+the silence when words feel false.
+I want the trembling hands, the half-healed scars,
+the edge of your voice when you say you’re fine—
+but you’re not.
+
+Bring me your sleepless nights,
+your aching back from carrying too much,
+the story of the scar on your body,
+the one you got when you ran too fast trying to be free.
+Let me hear how it hurt.
+Let me stay when it still does.
+
+Let me into the room where you hide your chaos,
+where your journals are messier than your thoughts,
+where old dreams collect dust,
+and fears live in drawers you never open.
+I'll sit with you there.
+
+Show me the texts you never sent,
+the apologies you whispered to no one,
+the love you gave that was never returned.
+I’ll hold your shaking voice,
+and I won’t ask it to sing.
+
+I don’t need the filtered version—
+the rehearsed smiles, the flawless days.
+I want the you that curses in traffic,
+wears socks that don’t match,
+laughs like thunder when you forget how to care.
+
+Give me the mornings when you don’t feel like rising,
+the nights when you're more shadow than skin.
+I’ll love the you that doubts,
+the you that fights back tears with silence,
+the you that believes you are too much or not enough.
+
+Siddhi- I Love You !
+Not for the shine,
+not for the mask you wear for the world—
+but for the raw,
+the honest,
+the storm that you are.
+
+You don’t need to be soft to be worthy.
+You don’t need to be easy to be held.
+Just come undone,
+and I’ll still say:
+I'll love you:
+this,
+all of this,
+is beautiful.
+I will love you with every scar,
+ever imperfection, all that you are-
+all you have, all I see is:
+just magic & beauty.
+
+You are neither.
+You are exactly as I want you:
+unfiltered,
+unmended,
+real.
+
+Let your edges stay sharp,
+your wounds stay healing.
+Don’t cover them up.
+I’ll trace every line like a map
+leading to the truth of you.
+
+I won’t love you despite your cracks—
+I’ll love you through them,
+within them,
+because of them.
+
+So break,
+bleed,
+breathe.
+You don’t have to become anything else.
+I love you, not when you’re perfect—
+but precisely when you’re not.`
+            }
+        ];
+
+        const poemsAdditional = [
+            {
+                title: "Tomorrow With You",
+                text: `Let’s finish what we started— Siddhi
+not just our studies,
+not just these quiet days of becoming someone.
+Let’s become us.
+Let’s get the jobs,
+earn enough not for riches,
+but for a life we built with our own hands.
+A small home,
+big enough for dreams,
+small enough to keep us close.
+
+Siddhi- I want to see your parents
+smiling beside mine,
+our families clinking glasses,
+laughing over stories we once only imagined sharing.
+Your hand in mine—
+not just in love,
+but in life.
+
+Let’s wake up together.
+Let the light slip in
+through half-closed curtains
+as we lie tangled in sheets,
+your breath on my chest,
+time paused in the quiet glow of morning.
+
+Let’s cook together—
+your hips brushing mine,
+music in the kitchen,
+laughing over chopped onions
+and burned toast,
+dancing barefoot with sauce-stained spoons.
+
+Let’s sit outside,
+watch sunsets melt into each other,
+every orange sky
+a promise that we stayed.
+That we chose this,
+again and again.
+
+At night,
+we’ll watch the moon rise slow—
+you wrapped in my arms,
+stars scattered like secrets.
+I want every night
+to end with your skin
+pressed against mine,
+your breath heavy and close.
+Let me bury myself in you—
+bite your neck,
+sweat into you,
+lose and find myself
+a hundred times
+until sleep steals us both.
+
+I want your name to echo through our home—
+not just from my lips,
+but from little ones we made.
+I want babies with your eyes,
+your laugh,
+your fire.
+Let’s raise them messy,
+honest,
+free.
+Let’s teach them love
+by the way I’ll never stop looking at you.
+
+Let’s make a life,
+not just a living.
+Let’s carve a way out of this chaos—
+just you and me,
+building something
+the world can’t touch.
+
+And when the last light comes—
+when our hands are older,
+our breaths slower—
+let’s sit together,
+one final sunset,
+your fingers in mine,
+our whole story behind us,
+and nothing left to say
+but I Love You, today, tomorrow & forever.
+`
+            }
+//             {
+//                 title: "Your Smile",
+//                 text: `Your smile is like the morning sun,
+// Bright and warm for everyone,
+// Your joy becomes my own delight,
+// Turning darkness into light.
+
+// When you smile, the flowers bloom,
+// Chasing away all the gloom,
+// The whole world seems to shine,
+// Because that beautiful smile is mine.
+
+// I live for moments when you're happy,
+// Your laughter makes life less sappy,
+// Promise me you'll always smile,
+// Making every day worthwhile.`
+//             }
+        ];
+
+        let allPoems = [...poemsInitial];
+        let showingAll = false;
+
+        // Render Poems as Cards with Modal
+        const poemsContainer = document.getElementById('poemsContainer');
+        const poemModal = document.getElementById('poemModal');
+        const poemModalClose = document.getElementById('poemModalClose');
+        const poemModalTitle = document.getElementById('poemModalTitle');
+        const poemModalText = document.getElementById('poemModalText');
+
+        function renderPoems() {
+            poemsContainer.innerHTML = '';
+            allPoems.forEach((poem, index) => {
+                const card = document.createElement('div');
+                card.className = 'poem-card';
+                card.innerHTML = `
+                    <div class="poem-card-header">
+                        <div class="poem-header-content">
+                            <div class="poem-number">${String(index + 1).padStart(2, '0')}</div>
+                            <div class="poem-title">${poem.title}</div>
+                        </div>
+                        <div class="poem-card-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    openPoemModal(poem);
+                });
+                
+                poemsContainer.appendChild(card);
+            });
+
+            // Add "Show More" button if not all poems are shown
+            if (!showingAll && poemsAdditional.length > 0) {
+                const showMoreBtn = document.createElement('button');
+                showMoreBtn.className = 'show-more-btn';
+                showMoreBtn.textContent = 'Show More Poems';
+                showMoreBtn.addEventListener('click', showMorePoems);
+                poemsContainer.appendChild(showMoreBtn);
+            }
+        }
+
+        function showMorePoems() {
+            showingAll = true;
+            allPoems = [...poemsInitial, ...poemsAdditional];
+            renderPoems();
+        }
+
+        function openPoemModal(poem) {
+            poemModalTitle.textContent = poem.title;
+            poemModalText.textContent = poem.text;
+            poemModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePoemModal() {
+            poemModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        poemModalClose.addEventListener('click', closePoemModal);
+        poemModal.addEventListener('click', (e) => {
+            if (e.target === poemModal) closePoemModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && poemModal.classList.contains('active')) {
+                closePoemModal();
+            }
+        });
+
+        renderPoems();
+
+        // Gallery Data
+        const galleries = {
+            1: [
+                { image: "./image/eyes.jpg", text: "In your eyes, I see the home my heart has been searching for.", time: "July 6, 2025", location: "Tinkune" },
+                { image: "./image/hands.jpg", text: "Fingers intertwined, hearts aligned.", time: "July 6, 2025", location: "Our favorite spot" },
+                { image: "./image/cloth2.jpg", text: "Wrapped in the fabric of your love, every thread tells our story.", time: "July 6, 2025", location: "Under the night sky" }
+            ],
+            2: [
+                { image: "https://images.unsplash.com/photo-1501696461415-6bd6660c6742?w=800&h=600&fit=crop", text: "Exploring the world with you by my side.", time: "May 5, 2024", location: "Adventure awaits" },
+                { image: "https://images.unsplash.com/photo-1507427100689-2bf8574e32d4?w=800&h=600&fit=crop", text: "Watching the sunset together, your hand in mine.", time: "May 12, 2024", location: "Golden hour" },
+                { image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop", text: "Hiking through mountains, sharing dreams.", time: "June 3, 2024", location: "The peaks" }
+            ],
+            3: [
+                { image: "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=800&h=600&fit=crop", text: "Cozy nights in, wrapped in your warmth.", time: "July 8, 2024", location: "Home" },
+                { image: "https://images.unsplash.com/photo-1516589091380-5d8e87df6999?w=800&h=600&fit=crop", text: "Cooking together, making memories.", time: "July 22, 2024", location: "Kitchen" },
+                { image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&h=600&fit=crop", text: "Simple moments mean everything.", time: "August 5, 2024", location: "Together" }
+            ],
+            4: [
+                { image: "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=800&h=600&fit=crop", text: "Planning our future, dream by dream.", time: "September 10, 2024", location: "Our dreams" },
+                { image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&h=600&fit=crop", text: "Every sunrise is more beautiful with you.", time: "September 28, 2024", location: "Dawn" },
+                { image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop", text: "Forever starts now. I choose you.", time: "October 14, 2024", location: "Always" }
+            ]
+        };
+
+        let scrolled = false, imageAppeared = false;
+        const navbar = document.getElementById('navbar');
+        const heroImage = document.getElementById('heroImage');
+        const heroSection = document.getElementById('heroSection');
+        const loveMessage = document.getElementById('loveMessage');
+        const heartParticles = document.getElementById('heartParticles');
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            
+            if (scrollPosition > 50 && !scrolled) {
+                scrolled = true;
+                navbar.classList.add('visible');
+                heroImage.classList.add('visible');
+                
+                if (!imageAppeared) {
+                    document.body.style.overflow = 'hidden';
+                    setTimeout(() => {
+                        imageAppeared = true;
+                        document.body.style.overflow = 'auto';
+                    }, 1000);
+                }
+            } else if (scrollPosition <= 50 && scrolled) {
+                scrolled = false;
+                navbar.classList.remove('visible');
+                heroImage.classList.remove('visible');
+            }
+
+            const heroSectionHeight = heroSection.offsetHeight;
+            if (scrollPosition < heroSectionHeight) {
+                const progress = scrollPosition / heroSectionHeight;
+                const translateY = -50 - (progress * 30);
+                if (heroImage.classList.contains('visible')) {
+                    heroImage.style.transform = `translate(-50%, ${translateY}%)`;
+                }
+            }
+
+            // Parallax
+            const parallaxSection = document.getElementById('parallaxSection');
+            const parallaxTop = parallaxSection.offsetTop;
+            const parallaxHeight = parallaxSection.offsetHeight;
+            
+            if (scrollPosition > parallaxTop - window.innerHeight && scrollPosition < parallaxTop + parallaxHeight) {
+                const relativeScroll = scrollPosition - (parallaxTop - window.innerHeight);
+                const maxScroll = window.innerHeight + parallaxHeight;
+                const progress = relativeScroll / maxScroll;
+                
+                const parallaxTexts = document.querySelectorAll('.parallax-text');
+                parallaxTexts.forEach((text, index) => {
+                    const direction = index % 2 === 0 ? 1 : -1;
+                    const speed = 0.8 + (index * 0.2);
+                    const basePosition = -50;
+                    const movement = basePosition + (progress * 150 * speed * direction);
+                    text.style.transform = `translateX(${movement}%)`;
+                });
+            }
+        });
+
+        const heartIcon = document.getElementById('heartIcon');
+
+        heartIcon.addEventListener('click', () => {
+            heartIcon.classList.add('filled');
+            loveMessage.classList.add('active');
+            
+            for (let i = 0; i < 25; i++) {
+                createHeartParticle();
+            }
+            
+            setTimeout(() => {
+                loveMessage.classList.remove('active');
+            }, 3000);
+            
+            setTimeout(() => {
+                heartIcon.classList.remove('filled');
+            }, 3500);
+        });
+
+        function createHeartParticle() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-particle';
+            heart.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+            const randomX = Math.random() * 100;
+            heart.style.left = randomX + '%';
+            heart.style.top = '100%';
+            heart.style.setProperty('--drift', `${(Math.random() - 0.5) * 80}px`);
+            heart.style.animationDelay = Math.random() * 0.5 + 's';
+            heartParticles.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        // Carousel
+        let currentGallery = null;
+        let currentSlide = 0;
+
+        const memoryItems = document.querySelectorAll('.memory-item');
+        const carouselOverlay = document.getElementById('carouselOverlay');
+        const carouselContent = document.getElementById('carouselContent');
+        const prevButton = document.getElementById('prevSlide');
+        const nextButton = document.getElementById('nextSlide');
+        const closeButton = document.getElementById('closeCarousel');
+
+        memoryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const galleryId = item.getAttribute('data-gallery');
+                openCarousel(galleryId);
+            });
+        });
+
+        function openCarousel(galleryId) {
+            currentGallery = galleries[galleryId];
+            currentSlide = 0;
+            renderCarousel();
+            carouselOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCarouselFunc() {
+            carouselOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentGallery = null;
+        }
+
+        function renderCarousel() {
+            if (!currentGallery) return;
+            
+            carouselContent.innerHTML = '';
+            
+            currentGallery.forEach((item, index) => {
+                const slide = document.createElement('div');
+                slide.className = `carousel-slide ${index === currentSlide ? 'active' : ''}`;
+                slide.innerHTML = `
+                    <img src="${item.image}" alt="Memory" class="carousel-image">
+                    <div class="carousel-info">
+                        <p class="carousel-text">${item.text}</p>
+                        <p class="carousel-meta">${item.time} — ${item.location}</p>
+                    </div>
+                `;
+                carouselContent.appendChild(slide);
+            });
+            
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'carousel-dots';
+            
+            currentGallery.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = `carousel-dot ${index === currentSlide ? 'active' : ''}`;
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    renderCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            });
+            
+            carouselContent.appendChild(dotsContainer);
+        }
+
+        function nextSlide() {
+            if (!currentGallery) return;
+            currentSlide = (currentSlide + 1) % currentGallery.length;
+            renderCarousel();
+        }
+
+        function prevSlideFunc() {
+            if (!currentGallery) return;
+            currentSlide = (currentSlide - 1 + currentGallery.length) % currentGallery.length;
+            renderCarousel();
+        }
+
+        prevButton.addEventListener('click', prevSlideFunc);
+        nextButton.addEventListener('click', nextSlide);
+        closeButton.addEventListener('click', closeCarouselFunc);
+
+        carouselOverlay.addEventListener('click', (e) => {
+            if (e.target === carouselOverlay) closeCarouselFunc();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!carouselOverlay.classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') prevSlideFunc();
+            else if (e.key === 'ArrowRight') nextSlide();
+            else if (e.key === 'Escape') closeCarouselFunc();
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.memory-item, .music-item, .poem-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
